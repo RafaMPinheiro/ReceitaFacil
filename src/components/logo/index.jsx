@@ -4,7 +4,7 @@ import { colors } from '../../styles/color';
 export function Logo() {
   return (
     <View style={styles.logoArea}>
-      <Text style={styles.logoTitle}>Larica fácil</Text>
+      <Text style={styles.logoTitle}>Receita fácil</Text>
     </View>
   );
 }
