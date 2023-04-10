@@ -24,6 +24,7 @@ O projeto **ReceitaFacil** é um App que foi criado dentro do curso **React Nati
 O projeto foi desenvolvido utilizando as seguintes tecnologias
 
 - [ReactNative](https://reactnative.dev/)
+- [JSON Server](https://github.com/typicode/json-server)
 - [Axios](https://github.com/axios/axios)
 
 ---
