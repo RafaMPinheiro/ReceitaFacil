@@ -42,6 +42,9 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias
     # Instalar as dependências
     $ npm install
 
+    # Iniciar o banco de dados
+    $ json-server –watch -d 180 –host SEU-IP db.json
+
     # Iniciar o projeto
     $ npx expo start
 ```
