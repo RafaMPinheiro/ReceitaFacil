@@ -1,6 +1,6 @@
 <h1 align="center">
-    <img src="https://ik.imagekit.io/lcf9dsx9t/App_Receita_F%C3%A1cil_pages-to-jpg-0001.jpg?updatedAt=1681151123938">
-    <img src="https://ik.imagekit.io/lcf9dsx9t/App_Receita_F%C3%A1cil_pages-to-jpg-0002.jpg?updatedAt=1681151123842">
+    <img height="200" src="https://ik.imagekit.io/lcf9dsx9t/App_Receita_F%C3%A1cil_pages-to-jpg-0001.jpg?updatedAt=1681151123938">
+    <img height="200" src="https://ik.imagekit.io/lcf9dsx9t/App_Receita_F%C3%A1cil_pages-to-jpg-0002.jpg?updatedAt=1681151123842">
 </h1>
 
 # Indice
