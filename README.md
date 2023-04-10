@@ -1,0 +1,46 @@
+<h1 align="center">
+    <img src="https://ik.imagekit.io/lcf9dsx9t/App_Receita_F%C3%A1cil_pages-to-jpg-0001.jpg?updatedAt=1681151123938">
+    <img src="https://ik.imagekit.io/lcf9dsx9t/App_Receita_F%C3%A1cil_pages-to-jpg-0002.jpg?updatedAt=1681151123842">
+</h1>
+
+# Indice
+
+- [Sobre](#-sobre)
+- [Tecnologias Utilizadas](#-tecnologias-utilizadas)
+- [Como baixar o projeto](#-como-baixar-o-projeto)
+
+## 🔖&nbsp; Sobre
+
+O projeto **ReceitaFacil** é um App que foi criado dentro do curso **React Native Insider** com o intuito de colocarmos em prática todo conteúdo estudado durante o curso.
+
+---
+
+## 🚀 Tecnologias utilizadas
+
+O projeto foi desenvolvido utilizando as seguintes tecnologias
+
+- [ReactNative](https://reactnative.dev/)
+- [Axios](https://github.com/axios/axios)
+
+---
+
+## 🗂 Como baixar o projeto
+
+```bash
+
+    # Clonar o repositório
+    $ git clone https://github.com/RafaMPinheiro/ReceitaFacil.git
+
+    # Entrar no diretório
+    $ cd ReceitaFacil
+
+    # Instalar as dependências
+    $ npm install
+
+    # Iniciar o projeto
+    $ npx expo start
+```
+
+---
+
+Desenvolvido 💜 por Rafael Messias Pinheiro
