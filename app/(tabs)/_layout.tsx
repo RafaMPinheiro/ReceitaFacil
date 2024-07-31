@@ -1,6 +1,6 @@
-import { Link, Stack, Tabs } from 'expo-router';
+import { FontAwesome } from '@expo/vector-icons';
+import { Tabs } from 'expo-router';
 
-import { HeaderButton } from '~/components/HeaderButton';
 import { TabBarIcon } from '~/components/TabBarIcon';
 
 export default function TabLayout() {
@@ -17,7 +17,9 @@ export default function TabLayout() {
         options={{
           headerShown: false,
           tabBarInactiveTintColor: '#FF000090',
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <FontAwesome size={28} name="home" color={color} style={{ marginBottom: -10 }} />
+          ),
         }}
       />
       <Tabs.Screen
@@ -26,7 +28,9 @@ export default function TabLayout() {
           title: 'Favoritos',
           tabBarActiveTintColor: 'red',
           tabBarInactiveTintColor: '#00000050',
-          tabBarIcon: ({ color }) => <TabBarIcon name="heart" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <FontAwesome size={28} name="heart" color={color} style={{ marginBottom: -10 }} />
+          ),
         }}
       />
     </Tabs>

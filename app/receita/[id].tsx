@@ -4,19 +4,35 @@ import { useEffect, useState } from 'react';
 import type { CardPratoType } from '~/components/CardPrato';
 import api from '~/services/api';
 import { FontAwesome } from '@expo/vector-icons';
+import { isFav, removeFav, saveFav } from '~/services/storage';
 
 export default function Receita() {
   const { id, name } = useLocalSearchParams<{ id: string; name?: string }>();
   const [receita, setReceita] = useState<CardPratoType | null>(null);
+  const [fav, setFav] = useState<boolean>(false);
 
   useEffect(() => {
-    async function fetchApi() {
-      const reponse = await api.get(`/foods/${id}`);
+    async function fetchReceita() {
+      const reponse = await api.get<CardPratoType>(`/foods/${id}`);
       setReceita(reponse.data);
+
+      const fav = await isFav(reponse.data.id);
+      setFav(fav);
     }
 
-    fetchApi();
+    fetchReceita();
   }, [id]);
+
+  const handleFav = async () => {
+    if (!receita) return;
+    if (fav) {
+      await removeFav(receita.id);
+      setFav(false);
+    } else {
+      await saveFav(receita);
+      setFav(true);
+    }
+  };
 
   return (
     <>
@@ -38,8 +54,8 @@ export default function Receita() {
               <View style={{ flex: 1, alignItems: 'center' }}>
                 <Text style={{ fontSize: 20 }}>{name ? name : 'carregando'}</Text>
               </View>
-              <TouchableOpacity>
-                <FontAwesome size={20} name="heart" />
+              <TouchableOpacity onPress={() => handleFav()}>
+                <FontAwesome size={20} name={fav ? 'heart' : 'heart-o'} color="red" />
               </TouchableOpacity>
             </View>
           ),
@@ -57,7 +73,10 @@ export default function Receita() {
                 alignItems: 'flex-start',
                 gap: 14,
               }}>
-              <Image source={{ uri: receita.cover }} style={{ height: 200, width: '100%' }} />
+              <Image
+                source={{ uri: receita.cover }}
+                style={{ height: 200, width: '100%', borderRadius: 12 }}
+              />
               <View style={{ gap: 8 }}>
                 <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{receita.name}</Text>
                 <Text>Ingredientes: {receita.total_ingredients}</Text>
@@ -110,7 +129,9 @@ export default function Receita() {
               </View>
             </View>
           ) : (
-            <Text>Carregando...</Text>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              <Text>Carregando...</Text>
+            </View>
           )}
         </ScrollView>
       </View>

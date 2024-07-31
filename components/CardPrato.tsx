@@ -1,7 +1,7 @@
-import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Link } from 'expo-router';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Link } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
+import WebView from 'react-native-webview';
 
 export type CardPratoType = {
   id: string;
@@ -29,7 +29,10 @@ export default function CardPrato(item: CardPratoType) {
         activeOpacity={0.7}>
         {item && (
           <>
-            <Image source={{ uri: item.cover }} style={{ height: '100%', width: '100%' }} />
+            <Image
+              source={{ uri: item.cover }}
+              style={{ height: '100%', width: '100%' }}
+            />
             <LinearGradient
               colors={['transparent', 'rgba(0,0,0,0.7)', 'rgba(0,0,0,0.9)']}
               style={{

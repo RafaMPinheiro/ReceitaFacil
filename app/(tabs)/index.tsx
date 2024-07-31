@@ -1,24 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { FlatList, Text, TextInput, View } from 'react-native';
-import { Link, Stack, router } from 'expo-router';
+import { useFocusEffect } from '@react-navigation/native';
+import { Stack } from 'expo-router';
 import { FontAwesome } from '@expo/vector-icons';
-
-import api from '~/services/api';
 
 import CardPrato, { type CardPratoType } from '~/components/CardPrato';
 
+import api from '~/services/api';
+
 export default function Home() {
   const [receitas, setReceitas] = useState<CardPratoType[]>([]);
+  const [filtredReceitas, setFiltredReceitas] = useState<CardPratoType[]>([]);
   const [search, setSearch] = useState('');
 
-  useEffect(() => {
-    async function fetchApi() {
-      const reponse = await api.get('/foods');
-      setReceitas(reponse.data);
-    }
+  useFocusEffect(
+    useCallback(() => {
+      async function fetchApi() {
+        const reponse = await api.get('/foods');
+        setReceitas(reponse.data);
+      }
 
-    fetchApi();
-  }, []);
+      fetchApi();
+    }, [])
+  );
+  const updateReceitas = (text: string) => {
+    setSearch(text);
+    if (text === '') {
+      setFiltredReceitas(receitas);
+    } else {
+      setFiltredReceitas(
+        receitas.filter((receita) => receita.name.toLowerCase().includes(text.toLowerCase()))
+      );
+    }
+  };
 
   return (
     <>
@@ -60,7 +74,7 @@ export default function Home() {
               paddingVertical: 16,
               fontSize: 18,
             }}
-            onChange={(e) => setSearch(e.nativeEvent.text)}
+            onChange={(e) => updateReceitas(e.nativeEvent.text)}
             value={search}
             placeholder="Digite o nome da comida"
           />
@@ -68,15 +82,13 @@ export default function Home() {
             <FontAwesome size={22} name="search" color="#4CBE6C" />
           </View>
         </View>
-        {receitas && (
-          <FlatList
-            style={{ height: '100%', width: '100%', paddingBottom: 6 }}
-            data={receitas}
-            keyExtractor={(item) => item.id}
-            ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
-            renderItem={({ item }) => <CardPrato {...item} />}
-          />
-        )}
+        <FlatList
+          style={{ height: '100%', width: '100%', paddingBottom: 6 }}
+          data={search.length > 0 ? filtredReceitas : receitas}
+          keyExtractor={(item) => item.id}
+          ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
+          renderItem={({ item }) => <CardPrato {...item} />}
+        />
       </View>
     </>
   );
