@@ -38,13 +38,13 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias
     $ cd ReceitaFacil
 
     # Instalar as dependências
-    $ npm install
+    $ yarn
 
     # Iniciar o banco de dados
-    $ json-server –watch -d 180 –host SEU-IP db.json
+    $ npx json-server -w --host SEU-IP db.json
 
     # Iniciar o projeto
-    $ npx expo start
+    $ yarn start
 ```
 
 ---
