@@ -23,6 +23,7 @@ export default function Home() {
       fetchApi();
     }, [])
   );
+  
   const updateReceitas = (text: string) => {
     setSearch(text);
     if (text === '') {

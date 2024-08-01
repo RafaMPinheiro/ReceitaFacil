@@ -1,9 +1,11 @@
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import { Link, Stack, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
-import type { CardPratoType } from '~/components/CardPrato';
-import api from '~/services/api';
+import { Image, ScrollView, Share, Text, TouchableOpacity, View } from 'react-native';
+import { Link, Stack, useLocalSearchParams } from 'expo-router';
 import { FontAwesome } from '@expo/vector-icons';
+
+import type { CardPratoType } from '~/components/CardPrato';
+
+import api from '~/services/api';
 import { isFav, removeFav, saveFav } from '~/services/storage';
 
 export default function Receita() {
@@ -32,6 +34,21 @@ export default function Receita() {
       await saveFav(receita);
       setFav(true);
     }
+  };
+
+  const handleShare = async () => {
+    await Share.share({
+      url: 'Receita Fácil',
+      message: `
+      Nome: ${receita?.name}\n
+      Tempo aproximado: ${receita?.time}\n
+      Youtube: ${receita?.video}\n
+      Ingredientes:\n
+      ${receita?.ingredients.map((item) => `${item.name} - ${item.amount}\n`)}
+      Modo de preparo:\n
+      ${receita?.instructions.map((item) => `${item.id} - ${item.text}\n`)}
+      `,
+    });
   };
 
   return (
@@ -63,7 +80,7 @@ export default function Receita() {
       />
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ScrollView style={{ backgroundColor: '#F3F9FF', flex: 1, width: '100%' }}>
-          {receita ? (
+          {receita && (
             <View
               style={{
                 flex: 1,
@@ -77,9 +94,20 @@ export default function Receita() {
                 source={{ uri: receita.cover }}
                 style={{ height: 200, width: '100%', borderRadius: 12 }}
               />
-              <View style={{ gap: 8 }}>
-                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{receita.name}</Text>
-                <Text>Ingredientes: {receita.total_ingredients}</Text>
+              <View
+                style={{
+                  width: '100%',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-around',
+                }}>
+                <View style={{ flex: 1, gap: 8 }}>
+                  <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{receita.name}</Text>
+                  <Text>Ingredientes: {receita.total_ingredients}</Text>
+                </View>
+                <TouchableOpacity onPress={handleShare} style={{ width: '15%' }}>
+                  <FontAwesome name="share" size={24} />
+                </TouchableOpacity>
               </View>
               {receita.ingredients.map((ingredient) => (
                 <View
@@ -128,13 +156,15 @@ export default function Receita() {
                 ))}
               </View>
             </View>
-          ) : (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-              <Text>Carregando...</Text>
-            </View>
           )}
         </ScrollView>
       </View>
     </>
   );
 }
+
+// ) : (
+//   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//     <Text>Carregando...</Text>
+//   </View>
+// )}
